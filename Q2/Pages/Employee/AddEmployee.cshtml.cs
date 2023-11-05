@@ -28,6 +28,7 @@ namespace Q2.Pages.Employee
         {
             //HttpContext.Session.SetString("employee",JsonSerializer.Serialize(employee));
             //var e = JsonSerializer.Deserialize<Models.Employee>(HttpContext.Session.GetString("employee"));
+
             var department = _context.Departments.SingleOrDefault(p  => p.DepartmentId == employee.DepartmentId);
 
             _context.Employees.Add(employee);

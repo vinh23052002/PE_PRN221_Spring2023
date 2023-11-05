@@ -46,7 +46,7 @@
                 </td>
 
                 <td>
-                    <a asp-page="./Edit" asp-route-id="@item.EmployeeId">Edit</a> |
+                    <a href="./Edit?id=@item.EmployeeId">Edit</a>
                     <a asp-page="./Details" asp-route-id="@item.EmployeeId">Details</a> |
                     <a href="javascript:void(0)" onclick="onDelete(@item.EmployeeId)">Delete</a>
                 </td>
@@ -75,6 +75,7 @@
             rowToRemove.remove(); 
         }
     })
+
     connection.on("AddEmployee", function (id, name, title, birthdate, department) {
         const rowToAdd = document.getElementById("tbody");
         var str = "<tr data-id=" + id + ">" +
@@ -84,7 +85,7 @@
             "<td>" + birthdate + "</td>" +
             "<td>" + department + "</td>" +
             "<td>" +
-            "<a asp-page='./Edit' asp-route-id='" + id + "'>Edit</a> | " +
+            "<a asp-page='./Edit' asp-route-id='" + id + "'>Edit</a>  " +
             "<a asp-page='./Details' asp-route-id='" + id + "'>Details</a> | " +
             "<a href='javascript:void(0)' onclick='onDelete(" + id + ")'>Delete</a>" +
             "</td>" +
@@ -93,5 +94,21 @@
         rowToAdd.innerHTML += str;
     });
 
+    connection.on("EditEmployee", function (id, name, title, birthdate, department) {
+        const rowToEdit = document.querySelector(`tr[data-id="${id}"]`);
+        var str = "<tr data-id=" + id + ">" +
+            "<td>" + id + "</td>" +
+            "<td>" + name + "</td>" +
+            "<td>" + title + "</td>" +
+            "<td>" + birthdate + "</td>" +
+            "<td>" + department + "</td>" +
+            "<td>" +
+            "<a asp-page='./Edit' asp-route-id='" + id + "'>Edit</a>  " +
+            "<a asp-page='./Details' asp-route-id='" + id + "'>Details</a> | " +
+            "<a href='javascript:void(0)' onclick='onDelete(" + id + ")'>Delete</a>" +
+            "</td>" +
+            "</tr>";
 
+        rowToEdit.innerHTML = str;
+    });
 </script>

@@ -91,7 +91,14 @@ namespace Q1
         private void btnEdit_Click(object sender, RoutedEventArgs e)
         {
             Employee employee = GetEmployee();
-            _context.Employees.Update(employee);
+            Employee eUpdate = _context.Employees.SingleOrDefault(p => p.EmployeeId == employee.EmployeeId);
+            eUpdate.FirstName = employee.FirstName;
+            eUpdate.LastName = employee.LastName;
+            eUpdate.Title = employee.Title;
+            eUpdate.BirthDate = employee.BirthDate;
+            eUpdate.DepartmentId = employee.DepartmentId;
+            eUpdate.TitleOfCourtesy = employee.TitleOfCourtesy;
+            _context.Employees.Update(eUpdate);
             _context.SaveChanges();
             start();
         }
