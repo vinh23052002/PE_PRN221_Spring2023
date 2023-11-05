@@ -1,0 +1,38 @@
+﻿@page
+@addTagHelper*,Microsoft.AspNetCore.Mvc.TagHelpers
+@model Q2.Pages.Employee.AddEmployeeModel
+@{
+    ViewData["Title"] = "Create";
+}
+<h1>Add New Employee</h1>
+
+<hr />
+<form method="post">
+    <div class="form-group">
+        <label>First Name:</label>
+        <input type="text" asp-for="employee.FirstName" />
+    </div>
+    <div class="form-group">
+        <label>Last Name:</label>
+        <input type="text" asp-for="employee.LastName" />
+    </div>
+    <div class="form-group">
+        <label>Department</label>
+        <select asp-for="employee.DepartmentId" class="form-control" asp-items="ViewBag.Department"></select>
+    </div>
+    <div class="form-group">
+        <label>Title:</label>
+        <input type="text" asp-for="employee.Title" />
+    </div>
+    <div class="form-group">
+        <label>TitleOfCourtesy</label>
+        <select asp-for="employee.TitleOfCourtesy" class="form-control" asp-items="ViewBag.TitleOfCourtesy"></select>
+    </div>
+    <div class="form-group">
+        <label>BithDate:</label>
+        <input type="date" asp-for="employee.BirthDate" />
+    </div>
+ 
+    <button type="submit"  >Submit</button>
+</form>
+

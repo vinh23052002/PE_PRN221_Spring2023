@@ -1,0 +1,95 @@
+﻿<Window x:Class="Q1.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Q1"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="720" Width="650">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1.7*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Column="0" Background="AliceBlue">
+                <StackPanel x:Name="___No_Name_" Orientation="Vertical">
+                    <Label Foreground="Red" FontWeight="Bold" FontSize="20" >Employee Information</Label>
+
+                    <Label Content="EmployeeId"/>
+                    <TextBox Name="txtEmployeeId" IsEnabled="False"></TextBox>
+
+                    <Label Content="FirstName"/>
+                    <TextBox x:Name="txtFirstName"></TextBox>
+
+                    <Label Content="LastName"/>
+                    <TextBox x:Name="txtLastName"></TextBox>
+
+                    <Label>Department</Label>
+                    <ComboBox x:Name="cboDepartment"
+                              DisplayMemberPath="DepartmentName"
+                              SelectedValuePath="DepartmentId"
+                              />
+
+                    <Label>Title</Label>
+                    <TextBox x:Name="txtTitle"></TextBox>
+
+                    <Label Content="TitleOfCourtesty"/>
+                    <ComboBox x:Name="cboTitleOfCourtesty"
+                              DisplayMemberPath=""
+                              SelectedValuePath=""
+                              />
+
+                    <Label Content="BirthDate"/>
+                    <DatePicker x:Name="dtpBirthDate"></DatePicker>
+
+                    <StackPanel Orientation="Horizontal">
+                        <Button x:Name="btnRefresh" Margin="10" Height="50" Width="60" Click="btnRefresh_Click">Refresh</Button>
+                        <Button x:Name="btnAdd" Margin="10" Height="50" Width="60" Click="btnAdd_Click">Add</Button>
+                        <Button x:Name="btnEdit" Margin="10" Height="50" Width="60" Click="btnEdit_Click">Edit</Button>
+                        <Button x:Name="btnDelete" Margin="10" Height="50" Width="60" Click="btnDelete_Click">Dlete</Button>
+                    </StackPanel>
+
+                </StackPanel>
+            </Grid>
+        </Grid>
+        <Grid Grid.Row="1">
+            <DataGrid x:Name="dgData" AutoGenerateColumns="False" MouseLeftButtonUp="dgData_MouseLeftButtonDown">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="EmployeeId"
+                                        Width="*"
+                                        Binding="{Binding Path=EmployeeId}"/>
+
+                    <DataGridTextColumn Header="FirstName"
+                                        Width="*"
+                                        Binding="{Binding Path=FirstName}"/>
+
+                    <DataGridTextColumn Header="LastName"
+                                        Width="*"
+                                        Binding="{Binding Path=LastName}"/>
+
+                    <DataGridTextColumn Header="Department"
+                                        Width="*"
+                                        Binding="{Binding Path=Department.DepartmentName}"/>
+
+                    <DataGridTextColumn Header="Title"
+                                        Width="*"
+                                        Binding="{Binding Path=Title}"/>
+
+                    <DataGridTextColumn Header="TitleOfCourtesy"
+                                        Width="*"
+                                        Binding="{Binding Path=TitleOfCourtesy}"/>
+
+                    <DataGridTextColumn Header="BirthDate"
+                                        Width="*"
+                                        Binding="{Binding Path=BirthDate}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+    </Grid>
+</Window>

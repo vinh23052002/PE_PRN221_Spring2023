@@ -1,0 +1,97 @@
+﻿@page
+@model Q2.Pages.Employee.EmployeeListModel
+@{
+    ViewData["Title"] = "Employee list";
+}
+<a href="./AddEmployee"><button>Add Employee</button></a>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.employees[0].EmployeeId)
+            </th>
+            <th>
+                EmployeeName
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.employees[0].Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.employees[0].BirthDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.employees[0].Department.DepartmentName)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody id="tbody">
+        @foreach (var item in Model.employees)
+        {
+            <tr data-id="@item.EmployeeId">
+                <td>
+                    @Html.DisplayFor(modelItem => item.EmployeeId)
+                </td>
+                <td>
+                    @item.FirstName @item.LastName
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>@item.BirthDate?.ToString("dd/MM/yyyy")
+                    
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Department.DepartmentName)
+                </td>
+
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.EmployeeId">Edit</a> |
+                    <a asp-page="./Details" asp-route-id="@item.EmployeeId">Details</a> |
+                    <a href="javascript:void(0)" onclick="onDelete(@item.EmployeeId)">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<script src="~/lib/microsoft/signalr/dist/browser/signalr.js"></script>
+<script>
+
+    var connection = new signalR.HubConnectionBuilder().withUrl("/employeeHub").build();
+
+    connection.start().then(function () {
+        console.log('SignalR Started...')
+    }).catch(function (err) {
+        return console.error(err.toString());
+    });
+
+    function onDelete (id){
+        connection.invoke("DeleteEmployee",id);
+    }
+
+    connection.on("LoadEmployee", function (id) {
+        const rowToRemove = document.querySelector(`tr[data-id="${id}"]`);
+        if (rowToRemove) {
+            rowToRemove.remove(); 
+        }
+    })
+    connection.on("AddEmployee", function (id, name, title, birthdate, department) {
+        const rowToAdd = document.getElementById("tbody");
+        var str = "<tr data-id=" + id + ">" +
+            "<td>" + id + "</td>" +
+            "<td>" + name + "</td>" +
+            "<td>" + title + "</td>" +
+            "<td>" + birthdate + "</td>" +
+            "<td>" + department + "</td>" +
+            "<td>" +
+            "<a asp-page='./Edit' asp-route-id='" + id + "'>Edit</a> | " +
+            "<a asp-page='./Details' asp-route-id='" + id + "'>Details</a> | " +
+            "<a href='javascript:void(0)' onclick='onDelete(" + id + ")'>Delete</a>" +
+            "</td>" +
+            "</tr>";
+
+        rowToAdd.innerHTML += str;
+    });
+
+
+</script>
